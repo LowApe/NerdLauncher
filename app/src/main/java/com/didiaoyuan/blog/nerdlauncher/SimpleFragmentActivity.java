@@ -11,8 +11,8 @@ import android.support.v7.app.AppCompatActivity;
  * Created by Mr.Qu on 2017/10/24.
  */
 
-public abstract class SimpleFragmentAcivity extends AppCompatActivity {
-    protected abstract Fragment creatFragment();
+public abstract class SimpleFragmentActivity extends AppCompatActivity {
+    protected abstract Fragment createFragment();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
@@ -25,7 +25,7 @@ public abstract class SimpleFragmentAcivity extends AppCompatActivity {
         Fragment fragment = fm.findFragmentById(R.id.activity_container);
 //        如果没有 fragment 给fm 添加 fragment
         if (fragment == null) {
-            fragment=creatFragment();
+            fragment=createFragment();
             fm.beginTransaction()
                     .add(R.id.activity_container,fragment)
                     .commit();
