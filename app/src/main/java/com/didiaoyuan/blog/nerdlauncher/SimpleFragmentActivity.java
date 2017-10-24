@@ -25,9 +25,9 @@ public abstract class SimpleFragmentActivity extends AppCompatActivity {
         Fragment fragment = fm.findFragmentById(R.id.activity_container);
 //        如果没有 fragment 给fm 添加 fragment
         if (fragment == null) {
-            fragment=createFragment();
+            fragment = createFragment();
             fm.beginTransaction()
-                    .add(R.id.activity_container,fragment)
+                    .add(R.id.activity_container, fragment)
                     .commit();
         }
 

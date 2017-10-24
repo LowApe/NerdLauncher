@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -66,7 +67,9 @@ public class NerdLauncherFragment extends Fragment {
 
     /*ViewHolder 内部类显示标签名*/
     private class ActivityHolder extends RecyclerView.ViewHolder {
+        //        创建引用信息加载获取用户标签
         private ResolveInfo mResolveInfo;
+        //        初始化显示控件
         private TextView mNameTextView;
 
 
@@ -78,19 +81,22 @@ public class NerdLauncherFragment extends Fragment {
         public void bindActivity(ResolveInfo resolveInfo) {
             mResolveInfo = resolveInfo;
             PackageManager pm = getActivity().getPackageManager();
-            String appName=mResolveInfo.loadLabel(pm).toString();
+            String appName = mResolveInfo.loadLabel(pm).toString();
             mNameTextView.setText(appName);
         }
     }
 
     /* Adapter 内部了实现数据*/
     private class ActivityAdapter extends RecyclerView.Adapter<ActivityHolder> {
+        //        初始化数据变量
         private final List<ResolveInfo> mActivities;
 
+        //         构造方法获取 activities
         private ActivityAdapter(List<ResolveInfo> activities) {
             mActivities = activities;
         }
 
+        //         创建列表布局视图样式
         @Override
         public ActivityHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
@@ -98,13 +104,14 @@ public class NerdLauncherFragment extends Fragment {
             return new ActivityHolder(view);
         }
 
+        //          获取每个activity 信息 并与ViewHolder 进行数据传递并绑定
         @Override
         public void onBindViewHolder(ActivityHolder holder, int position) {
             ResolveInfo resolveInfo = mActivities.get(position);
             holder.bindActivity(resolveInfo);
         }
 
-
+        //          获取整个 list 数据
         @Override
         public int getItemCount() {
             return mActivities.size();
