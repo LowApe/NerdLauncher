@@ -15,9 +15,9 @@ public abstract class SimpleFragmentActivity extends AppCompatActivity {
     protected abstract Fragment createFragment();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-//        加载 fragment 布局
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //        加载 fragment 布局
         setContentView(R.layout.activity_fragment);
 //        获取 FragmentManager
         FragmentManager fm = getSupportFragmentManager();
@@ -30,5 +30,6 @@ public abstract class SimpleFragmentActivity extends AppCompatActivity {
                     .add(R.id.activity_container,fragment)
                     .commit();
         }
+
     }
 }

@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.TextView;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -20,8 +22,6 @@ import java.util.List;
  */
 
 public class NerdLauncherFragment extends Fragment {
-    //  初始化变量
-    private static final String TAG = "NerdLauncherFragment";
     private RecyclerView mRecyclerView;
 
     //  创建 NerdLauncherFragment 方法
@@ -33,7 +33,7 @@ public class NerdLauncherFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_fragment, container, false);
+        View v = inflater.inflate(R.layout.fragment_nerd_launcher, container, false);
         mRecyclerView = v.findViewById(R.id.nerd_launcher_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         setupAdapter();
@@ -49,6 +49,64 @@ public class NerdLauncherFragment extends Fragment {
 //        利用 pm 查询所有 startupIntent 的 activity 返回给 list 列表
         List<ResolveInfo> activities = pm.queryIntentActivities(startupIntent, 0);
 //        log 打印含有多少个 activities
-        Log.e(TAG, "\n activities have ："+activities.size()+"\n");
+        Log.e("TAG", "\n activities have ：" + activities.size() + "\n");
+        Collections.sort(activities, new Comparator<ResolveInfo>() {
+            @Override
+            public int compare(ResolveInfo resolveInfo, ResolveInfo t1) {
+                PackageManager pm = getActivity().getPackageManager();
+
+                return String.CASE_INSENSITIVE_ORDER.compare(
+                        resolveInfo.loadLabel(pm).toString(),
+                        t1.loadLabel(pm).toString()
+                );
+            }
+        });
+    }
+
+    /*ViewHolder 内部类显示标签名*/
+    private class ActivityHolder extends RecyclerView.ViewHolder {
+        private ResolveInfo mResolveInfo;
+        private TextView mNameTextView;
+
+
+        public ActivityHolder(View itemView) {
+            super(itemView);
+            mNameTextView = (TextView) itemView;
+        }
+
+        public void bindActivity(ResolveInfo resolveInfo) {
+            mResolveInfo = resolveInfo;
+            PackageManager pm = getActivity().getPackageManager();
+            String appName=mResolveInfo.loadLabel(pm).toString();
+            mNameTextView.setText(appName);
+        }
+    }
+
+    /* Adapter 内部了实现数据*/
+    private class ActivityAdapter extends RecyclerView.Adapter<ActivityHolder> {
+        private final List<ResolveInfo> mActivities;
+
+        private ActivityAdapter(List<ResolveInfo> activities) {
+            mActivities = activities;
+        }
+
+        @Override
+        public ActivityHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            View view = layoutInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            return new ActivityHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(ActivityHolder holder, int position) {
+            ResolveInfo resolveInfo = mActivities.get(position);
+            holder.bindActivity(resolveInfo);
+        }
+
+
+        @Override
+        public int getItemCount() {
+            return mActivities.size();
+        }
     }
 }
