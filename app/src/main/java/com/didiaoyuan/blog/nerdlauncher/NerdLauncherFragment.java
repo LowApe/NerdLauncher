@@ -61,6 +61,7 @@ public class NerdLauncherFragment extends Fragment {
                 );
             }
         });
+        mRecyclerView.setAdapter(new ActivityAdapter(activities));
     }
 
     /*ViewHolder 内部类显示标签名*/
