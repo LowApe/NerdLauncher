@@ -93,7 +93,8 @@ public class NerdLauncherFragment extends Fragment {
             ActivityInfo activityInfo=mResolveInfo.activityInfo;
 //            创建 Intent 对象
             Intent i=new Intent(Intent.ACTION_MAIN)
-                    .setClassName(activityInfo.applicationInfo.packageName,activityInfo.name);
+                    .setClassName(activityInfo.applicationInfo.packageName,activityInfo.name)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            启动 Intent
             startActivity(i);
 
