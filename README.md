@@ -8,3 +8,5 @@
 
 # 第二阶段
 > 点击进入相应的activity
+
+![](http://ww1.sinaimg.cn/mw690/006rAlqhly1fkut9i7g5hg30ct0nv7g4.gif)
