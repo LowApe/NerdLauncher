@@ -10,3 +10,15 @@
 > 点击进入相应的activity
 
 ![](http://ww1.sinaimg.cn/mw690/006rAlqhly1fkut9i7g5hg30ct0nv7g4.gif)
+
+# 第三阶段
+> 将应用设置为主屏幕
+
+![](http://ww1.sinaimg.cn/mw690/006rAlqhly1fkuui4w6baj30b00mb778.jpg)
+
+> 如果不小心设置成主屏幕了可以点击 Setting 应用——> Apps——> 选择这个应用请出默认 ——> 点击主屏幕 选择系统，然后删除该应用
+
+# 第四阶段
+> 获取应用的图标
+
+![](http://ww1.sinaimg.cn/mw690/006rAlqhly1fkwlspjkh1j30am0j6413.jpg)
